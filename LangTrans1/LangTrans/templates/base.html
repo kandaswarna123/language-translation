@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>LangTrans</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background-image: url("/static/image.png");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        .sidebar {
+            position: fixed;
+            height: 100vh;
+            width: 250px;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            flex-direction: column;
+            padding-top: 40px;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .sidebar a {
+            text-decoration: none;
+            color: white;
+            padding: 15px 30px;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        .sidebar a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding-left: 40px;
+        }
+
+        .main {
+            margin-left: 250px;
+            padding: 30px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #222;
+            background-color: rgba(255, 255, 255, 0.85);
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        h1:hover {
+            background-color: rgba(0, 0, 0, 0.1);
+            color: #000;
+            letter-spacing: 1px;
+        }
+
+        .content-box {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 25px;
+            border-radius: 12px;
+            margin-top: 30px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .content-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #4CAF50;
+            /* default green */
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+            font-weight: bold;
+            z-index: 1000;
+            animation: fadeOut 4s forwards;
+        }
+
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+            }
+
+            80% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+                display: none;
+            }
+        }
+
+
+        input[type="file"],
+        input[type="submit"] {
+            font-family: 'Poppins', sans-serif;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            margin-top: 10px;
+            transition: all 0.3s;
+        }
+
+        input[type="file"]:hover,
+        input[type="submit"]:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+            cursor: pointer;
+        }
+
+        /* Toast popup */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+            font-weight: bold;
+            z-index: 1000;
+            animation: fadeOut 4s forwards;
+        }
+
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+            }
+
+            80% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="sidebar">
+        <a href="{{ url_for('welcome') }}">🏠 Home</a>
+        <a href="{{ url_for('home') }}">🌐 Project</a>
+        <a href="{{ url_for('about') }}">ℹ️ About</a>
+        <a href="{{ url_for('contact') }}">📞 Contact Us</a>
+
+        {% if 'user' not in session %}
+        <a href="{{ url_for('login') }}">🔐 Login</a>
+        <a href="{{ url_for('signup') }}">📝 Sign Up</a>
+        {% else %}
+        <a href="{{ url_for('logout') }}">🚪 Logout</a>
+        {% endif %}
+    </div>
+
+    <div class="main">
+        <h1>LangTrans - Language Translator</h1>
+        <div class="content-box">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+
+    {% if session.get('user') and request.args.get('welcome') %}
+    <div class="toast">
+        👋 Hello, {{ session['user'] }}!
+    </div>
+    {% endif %}
+
+    {% if session.get('logout_message') %}
+    <div class="toast" style="background-color: #f44336;">
+        {{ session.pop('logout_message') }}
+    </div>
+    {% endif %}
+
+
+
+</body>
+
+</html>

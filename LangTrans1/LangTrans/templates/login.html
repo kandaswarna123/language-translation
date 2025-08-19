@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
+
+    .form-box {
+        font-family: 'Quicksand', sans-serif;
+        max-width: 400px;
+        margin: auto;
+        background-color: rgba(255, 255, 255, 0.95);
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .input-group {
+        display: flex;
+        align-items: center;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        padding: 10px;
+        margin-top: 12px;
+        background: #fff;
+    }
+
+    .input-group i {
+        color: #888;
+        margin-right: 10px;
+        font-size: 18px;
+    }
+
+    .input-group input {
+        border: none;
+        outline: none;
+        width: 100%;
+        font-size: 16px;
+        font-family: 'Quicksand', sans-serif;
+    }
+
+    .form-box button {
+        width: 100%;
+        padding: 12px;
+        margin-top: 16px;
+        background-color: #2196F3;
+        color: white;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        transition: 0.3s;
+    }
+
+    .form-box button:hover {
+        background-color: #1565C0;
+        cursor: pointer;
+        letter-spacing: 1px;
+    }
+
+    .form-box a {
+        color: #007BFF;
+        text-decoration: none;
+    }
+
+    .form-box a:hover {
+        text-decoration: underline;
+    }
+
+    .form-box h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+</style>
+
+<div class="form-box">
+    <h2>🔐 Login to LangTrans</h2>
+    <form method="POST">
+        <div class="input-group">
+            <i class="fas fa-envelope"></i>
+            <input type="email" name="email" placeholder="Enter your email" required>
+        </div>
+        <div class="input-group">
+            <i class="fas fa-lock"></i>
+            <input type="password" name="password" placeholder="Enter your password" required>
+        </div>
+        <button type="submit">Login</button>
+    </form>
+    <p style="text-align: center; margin-top: 10px;">
+        Don't have an account? <a href="{{ url_for('signup') }}">Sign up here</a>
+    </p>
+</div>
+{% endblock %}
