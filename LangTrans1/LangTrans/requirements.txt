@@ -1,0 +1,6 @@
+Flask
+pdfplumber
+deep-translator
+pdf2image
+pytesseract
+pillow
