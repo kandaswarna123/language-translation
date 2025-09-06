@@ -69,7 +69,7 @@ def login():
 
         if user:
             session['user'] = user[1]  # Assuming name is at index 1
-            return redirect(url_for('welcome', welcome='1'))
+            return redirect(url_for('welcome'))
         else:
             return render_template('login.html', error="Account does not exist. Please sign up.")
     
@@ -191,3 +191,4 @@ def uploaded_file(filename):
 if __name__ == '__main__':
     init_db()
     app.run(debug=True)
+
